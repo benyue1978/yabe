@@ -1,0 +1,186 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Yabe.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="GUI_SplitterLeft" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="GUI_SplitterRight" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="GUI_SplitterButtom" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="GUI_FormSize" Type="System.Drawing.Size" Scope="User">
+      <Value Profile="(Default)">-1, -1</Value>
+    </Setting>
+    <Setting Name="GUI_FormState" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Maximized</Value>
+    </Setting>
+    <Setting Name="Udp_ExclusiveUseOfSocket" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="MSTP_DisplayFreeAddresses" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="MSTP_LogStateMachine" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DefaultRetries" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="DefaultTimeout" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">500</Value>
+    </Setting>
+    <Setting Name="DefaultUdpPort" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">47808</Value>
+    </Setting>
+    <Setting Name="DefaultBaudrate" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">38400</Value>
+    </Setting>
+    <Setting Name="DefaultSourceAddress" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="DefaultMaxMaster" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">127</Value>
+    </Setting>
+    <Setting Name="DefaultMaxInfoFrames" Type="System.Decimal" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="Subscriptions_IssueConfirmedNotifies" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Subscriptions_Lifetime" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">120</Value>
+    </Setting>
+    <Setting Name="GUI_LastFilename" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DefaultDownloadSpeed" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="Segments_ProposedWindowSize" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="Segments_Max" Type="System.Byte" Scope="User">
+      <Value Profile="(Default)">65</Value>
+    </Setting>
+    <Setting Name="TimeSynchronize_UTC" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Udp_DontFragment" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Udp_MaxPayload" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1472</Value>
+    </Setting>
+    <Setting Name="Address_Space_Structured_View" Type="Yabe.AddressTreeViewType" Scope="User">
+      <Value Profile="(Default)">List</Value>
+    </Setting>
+    <Setting Name="DefaultUdpIp" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DefaultWritePriority" Type="System.IO.BACnet.BacnetWritePriority" Scope="User">
+      <Value Profile="(Default)">LOWEST_AND_DEFAULT</Value>
+    </Setting>
+    <Setting Name="YabeDeviceId" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="DefaultBBMD" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="Subscriptions_ReplacementPollingPeriod" Type="System.UInt32" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
+    <Setting Name="Auto_Store_Object_Names_File" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Yabe Stored Object Names\Auto_Stored_Object_Names.YabeMap</Value>
+    </Setting>
+    <Setting Name="IPv6_Support" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ShowDescriptionWhenUseful" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="DisplayIdWithName" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Plugins" Type="System.String" Scope="User">
+      <Value Profile="(Default)">CheckReliability, CheckStatusFlags, ListOutOfService, FindPrioritiesGlobal, GlobalCommander</Value>
+    </Setting>
+    <Setting Name="GraphDotStyle" Type="ZedGraph.SymbolType" Scope="User">
+      <Value Profile="(Default)">Square</Value>
+    </Setting>
+    <Setting Name="GraphLineStep" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="SettingsUpgradeRequired" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="COVTimeFormater" Type="System.String" Scope="User">
+      <Value Profile="(Default)">HH:mm:ss</Value>
+    </Setting>
+    <Setting Name="GUI_SubscriptionColumns" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0;46;1;129;2;160;3;60;4;60;5;55;6;60;7;4</Value>
+    </Setting>
+    <Setting Name="GUI_SplitterMiddle" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">-1</Value>
+    </Setting>
+    <Setting Name="COV_Export_Path" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\COV Graph Exports\</Value>
+    </Setting>
+    <Setting Name="UsePollingByDefault" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="Auto_Store_Object_Names" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Auto_Store_Period_Minutes" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="Vertical_Object_Splitter_Orientation" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="BACnetSCConfigFile" Type="System.String" Scope="User">
+      <Value Profile="(Default)">BACnetSCConfig.config</Value>
+    </Setting>
+    <Setting Name="Show_Property_Id_Numbers" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ShowHighLightFilter" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="EDE_SingleFile" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="EDE_CommonFiles" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="EDE_Separator" Type="System.Char" Scope="User">
+      <Value Profile="(Default)">;</Value>
+    </Setting>
+    <Setting Name="UseObjectsCache" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="GridArrayExpandMaxSize" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="GridAlwaysExpandProperties" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Priority Array</Value>
+    </Setting>
+    <Setting Name="DeviceClassStructure" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="DeviceViewMode" Type="Yabe.DeviceTreeViewType" Scope="User">
+      <Value Profile="(Default)">Network</Value>
+    </Setting>
+    <Setting Name="NotAffectedFolderName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Not Affected</Value>
+    </Setting>
+    <Setting Name="BackGroundOperations" Type="Yabe.BackGroundOperationType" Scope="User">
+      <Value Profile="(Default)">None</Value>
+    </Setting>
+    <Setting Name="BackGroundThreadNumber" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

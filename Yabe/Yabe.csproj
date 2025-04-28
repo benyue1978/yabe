@@ -1,0 +1,414 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EE493B17-8185-406C-881F-1144092F01CB}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Yabe</RootNamespace>
+    <AssemblyName>Yabe</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Search.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CalendarView">
+      <HintPath>.\Resources\EmbeddedDll\CalendarView.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PacketDotNet">
+      <HintPath>.\Resources\EmbeddedDll\PacketDotNet.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SharpPcap">
+      <HintPath>.\Resources\EmbeddedDll\SharpPcap.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="websocket-sharp">
+      <HintPath>.\Resources\EmbeddedDll\websocket-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="ZedGraph">
+      <HintPath>.\Resources\EmbeddedDll\ZedGraph.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\DemoServer\DeviceStorage.cs">
+      <Link>Utils.cs\DeviceStorage.cs</Link>
+    </Compile>
+    <Compile Include="..\Mstp.BacnetCapture\BacnetCapture.cs">
+      <Link>MstpCapture\BacnetCapture.cs</Link>
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="..\Mstp.BacnetCapture\BacnetCapture.Designer.cs">
+      <Link>MstpCapture\BacnetCapture.Designer.cs</Link>
+      <DependentUpon>BacnetCapture.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Mstp.BacnetCapture\BacnetNode.cs">
+      <Link>MstpCapture\BacnetNode.cs</Link>
+    </Compile>
+    <Compile Include="..\Mstp.BacnetCapture\WiresharkSender.cs">
+      <Link>MstpCapture\WiresharkSender.cs</Link>
+    </Compile>
+    <Compile Include="BACnetBase.cs" />
+    <Compile Include="BACnetClient.cs" />
+    <Compile Include="BACnetDevice.cs" />
+    <Compile Include="BACnetTransport.cs" />
+    <Compile Include="BacnetTransportEthernet.cs" />
+    <Compile Include="BACnetTransportIPv6.cs" />
+    <Compile Include="BACnetTransportSecureConnect.cs" />
+    <Compile Include="BacnetTransportSerial.cs" />
+    <Compile Include="Forms\DynamicPropertyGridContainer.cs" />
+    <Compile Include="Utils.cs\FileTransfers.cs" />
+    <Compile Include="Forms\AlarmSummary.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AlarmSummary.Designer.cs">
+      <DependentUpon>AlarmSummary.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BBMDEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BBMDEditor.Designer.cs">
+      <DependentUpon>BBMDEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CalendarEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CalendarEditor.Designer.cs">
+      <DependentUpon>CalendarEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\CreateObject.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\CreateObject.Designer.cs">
+      <DependentUpon>CreateObject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DeviceCommunicationControlDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DeviceCommunicationControlDialog.Designer.cs">
+      <DependentUpon>DeviceCommunicationControlDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ForeignRegistry.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ForeignRegistry.designer.cs">
+      <DependentUpon>ForeignRegistry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\NotificationEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\NotificationEditor.Designer.cs">
+      <DependentUpon>NotificationEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ProgressDialog.Designer.cs">
+      <DependentUpon>ProgressDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SCEditor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SCEditor.Designer.cs">
+      <DependentUpon>SCEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ScheduleDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ScheduleDisplay.Designer.cs">
+      <DependentUpon>ScheduleDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SearchDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SearchDialog.Designer.cs">
+      <DependentUpon>SearchDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SettingsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SettingsDialog.Designer.cs">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SourceAddressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SourceAddressDialog.Designer.cs">
+      <DependentUpon>SourceAddressDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\TrendLogDisplay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\TrendLogDisplay.Designer.cs">
+      <DependentUpon>TrendLogDisplay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\GenericInputBox.cs" />
+    <Compile Include="Utils.cs\Helpers.cs" />
+    <Compile Include="Utils.cs\IYabePlugin.cs" />
+    <Compile Include="MainDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainDialog.Designer.cs">
+      <DependentUpon>MainDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainDialog.Menus.cs">
+      <DependentUpon>MainDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainDialog.UserCmd.cs">
+      <DependentUpon>MainDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainDialog.DeviceView.cs">
+      <DependentUpon>MainDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainDialog.Export.cs">
+      <DependentUpon>MainDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utils.cs\Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Forms\TreeView.cs" />
+    <Compile Include="Utils.cs\YabeDevice.cs" />
+    <EmbeddedResource Include="..\Mstp.BacnetCapture\BacnetCapture.resx">
+      <Link>MstpCapture\BacnetCapture.resx</Link>
+      <DependentUpon>BacnetCapture.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AlarmSummary.resx">
+      <DependentUpon>AlarmSummary.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BBMDEditor.resx">
+      <DependentUpon>BBMDEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CalendarEditor.resx">
+      <DependentUpon>CalendarEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\CreateObject.resx">
+      <DependentUpon>CreateObject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DeviceCommunicationControlDialog.resx">
+      <DependentUpon>DeviceCommunicationControlDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ForeignRegistry.resx">
+      <DependentUpon>ForeignRegistry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\NotificationEditor.resx">
+      <DependentUpon>NotificationEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ProgressDialog.resx">
+      <DependentUpon>ProgressDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SCEditor.resx">
+      <DependentUpon>SCEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ScheduleDisplay.resx">
+      <DependentUpon>ScheduleDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SearchDialog.resx">
+      <DependentUpon>SearchDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SettingsDialog.resx">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SourceAddressDialog.resx">
+      <DependentUpon>SourceAddressDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\TrendLogDisplay.resx">
+      <DependentUpon>TrendLogDisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainDialog.resx">
+      <DependentUpon>MainDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="app.config" />
+    <None Include="Common Files\AdvertiseSample.cov">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>AdvertiseSample.cov</TargetPath>
+    </None>
+    <None Include="Common Files\BACnetSCConfig.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>BACnetSCConfig.config</TargetPath>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Common Files\RecipeSample.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>RecipeSample.csv</TargetPath>
+    </None>
+    <None Include="Common Files\VendorPropertyMapping.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>VendorPropertyMapping.csv</TargetPath>
+    </None>
+    <EmbeddedResource Include="Resources\ObjectTypes.csv" />
+    <None Include="Common Files\TestHub.crt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>TestHub.crt</TargetPath>
+    </None>
+    <EmbeddedResource Include="Resources\Units.csv" />
+    <None Include="Common Files\Yabe.p12">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>Yabe.p12</TargetPath>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user-gray.png" />
+    <None Include="Resources\wsicon16.png" />
+    <None Include="Resources\folder.png" />
+    <Content Include="Common Files\SimplifiedViewFilter.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>SimplifiedViewFilter.xml</TargetPath>
+    </Content>
+    <Content Include="Common Files\YabeMenuCmd.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>YabeMenuCmd.txt</TargetPath>
+    </Content>
+    <EmbeddedResource Include="Common Files\YabeDeviceDescriptor.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Resources\cross.png" />
+    <None Include="Resources\add.png" />
+    <None Include="Resources\note.png" />
+    <Content Include="..\Docs\README.txt">
+      <Link>Common Files\README.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>README.txt</TargetPath>
+    </Content>
+    <None Include="Resources\database.png" />
+    <None Include="Resources\magnifier.png" />
+    <None Include="Resources\eye.png" />
+    <None Include="Resources\clock.png" />
+    <None Include="Resources\information.png" />
+    <None Include="Resources\application_form.png" />
+    <None Include="Resources\transmit.png" />
+    <None Include="Resources\world.png" />
+    <None Include="Resources\chart_line.png" />
+    <None Include="Resources\calendar_view_week.png" />
+    <None Include="Resources\bell.png" />
+    <None Include="Resources\date.png" />
+    <Content Include="Common Files\ReadSinglePropDescr.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <TargetPath>ReadSinglePropDescr.xml</TargetPath>
+    </Content>
+    <EmbeddedResource Include="Common Files\ReadSinglePropDescrDefault.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="Resources\error.png" />
+    <None Include="Resources\book_open.png" />
+    <None Include="Resources\database_go1.png" />
+    <None Include="Resources\database_edit.png" />
+    <None Include="Resources\database_delete.png" />
+    <None Include="Resources\text_smallcaps.png" />
+    <None Include="Resources\find.png" />
+    <None Include="Resources\pencil_add.png" />
+    <None Include="Resources\pencil_delete.png" />
+    <None Include="Resources\monitor.png" />
+    <EmbeddedResource Include="Resources\EmbeddedDll\CalendarView.dll" />
+    <EmbeddedResource Include="Resources\EmbeddedDll\PacketDotNet.dll" />
+    <EmbeddedResource Include="Resources\EmbeddedDll\SharpPcap.dll" />
+    <EmbeddedResource Include="Resources\EmbeddedDll\ZedGraph.dll" />
+    <None Include="Resources\plugin.png" />
+    <EmbeddedResource Include="Resources\EmbeddedDll\websocket-sharp.dll" />
+    <Content Include="Resources\reload.png" />
+    <Content Include="Search.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 et x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
