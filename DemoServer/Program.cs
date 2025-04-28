@@ -37,8 +37,6 @@ namespace DemoServer
     {
         private static DeviceStorage m_storage;
         private static BacnetClient m_ip_server;
-        private static BacnetClient m_mstp_server;
-        private static BacnetClient m_ptp_server;
         private static Dictionary<BacnetObjectId, List<Subscription>> m_subscriptions = new Dictionary<BacnetObjectId, List<Subscription>>();
         private static object m_lockObject = new object();
         private static BacnetSegmentations m_supported_segmentation = BacnetSegmentations.SEGMENTATION_BOTH;
@@ -48,13 +46,21 @@ namespace DemoServer
             try
             {
                 //init
-                Trace.Listeners.Add(new ConsoleTraceListener());    //Some of the classes are using the Trace/Debug to communicate loggin. (As they should.) So let's catch those as well.
+                Trace.Listeners.Add(new ConsoleTraceListener());
                 m_storage = DeviceStorage.Load("DeviceStorage.xml");
+                Console.WriteLine($"[LOG] DeviceStorage.xml 加载成功，设备ID: {m_storage.DeviceId}，对象总数: {m_storage.Objects?.Length ?? 0}");
+                if (m_storage.Objects != null)
+                {
+                    foreach (var obj in m_storage.Objects)
+                    {
+                        Console.WriteLine($"[LOG] 对象: 类型={obj.Type} 实例={obj.Instance} 属性数={obj.Properties?.Length ?? 0}");
+                    }
+                }
                 m_storage.ChangeOfValue += new DeviceStorage.ChangeOfValueHandler(m_storage_ChangeOfValue);
                 m_storage.ReadOverride += new DeviceStorage.ReadOverrideHandler(m_storage_ReadOverride);
 
-                //create udp service point
-                BacnetIpUdpProtocolTransport udp_transport = new BacnetIpUdpProtocolTransport(0xBAC0, false);       //set to true to force "single socket" usage
+                // 只保留 UDP/IP 服务端
+                BacnetIpUdpProtocolTransport udp_transport = new BacnetIpUdpProtocolTransport(0xBAC0, false);
                 m_ip_server = new BacnetClient(udp_transport);
                 m_ip_server.OnWhoIs += new BacnetClient.WhoIsHandler(OnWhoIs);
                 m_ip_server.OnWhoHas += new BacnetClient.WhoHasHandler(OnWhoHas);
@@ -73,80 +79,19 @@ namespace DemoServer
                 m_ip_server.OnReadRange += new BacnetClient.ReadRangeHandler(OnReadRange);
                 m_ip_server.Start();
 
-                //create pipe (MSTP) service point
-                BacnetPipeTransport pipe_transport = new BacnetPipeTransport("COM1003", true);
-                BacnetMstpProtocolTransport mstp_transport = new BacnetMstpProtocolTransport(pipe_transport, 0, 10, 1);
-                mstp_transport.StateLogging = false;        //if you enable this, it will display a lot of information about the StateMachine
-                m_mstp_server = new BacnetClient(mstp_transport);
-                m_mstp_server.OnWhoIs += new BacnetClient.WhoIsHandler(OnWhoIs);
-                m_mstp_server.OnWhoHas += new BacnetClient.WhoHasHandler(OnWhoHas);
-                m_mstp_server.OnReadPropertyRequest += new BacnetClient.ReadPropertyRequestHandler(OnReadPropertyRequest);
-                m_mstp_server.OnWritePropertyRequest += new BacnetClient.WritePropertyRequestHandler(OnWritePropertyRequest);
-                m_mstp_server.OnReadPropertyMultipleRequest += new BacnetClient.ReadPropertyMultipleRequestHandler(OnReadPropertyMultipleRequest);
-                m_mstp_server.OnWritePropertyMultipleRequest += new BacnetClient.WritePropertyMultipleRequestHandler(OnWritePropertyMultipleRequest);
-                m_mstp_server.OnAtomicWriteFileRequest += new BacnetClient.AtomicWriteFileRequestHandler(OnAtomicWriteFileRequest);
-                m_mstp_server.OnAtomicReadFileRequest += new BacnetClient.AtomicReadFileRequestHandler(OnAtomicReadFileRequest);
-                m_mstp_server.OnSubscribeCOV += new BacnetClient.SubscribeCOVRequestHandler(OnSubscribeCOV);
-                m_mstp_server.OnSubscribeCOVProperty += new BacnetClient.SubscribeCOVPropertyRequestHandler(OnSubscribeCOVProperty);
-                m_mstp_server.OnTimeSynchronize += new BacnetClient.TimeSynchronizeHandler(OnTimeSynchronize);
-                m_mstp_server.OnDeviceCommunicationControl += new BacnetClient.DeviceCommunicationControlRequestHandler(OnDeviceCommunicationControl);
-                m_mstp_server.OnReinitializedDevice += new BacnetClient.ReinitializedRequestHandler(OnReinitializedDevice);
-                m_mstp_server.OnIam += new BacnetClient.IamHandler(OnIam);
-                m_mstp_server.OnReadRange += new BacnetClient.ReadRangeHandler(OnReadRange);
-                m_mstp_server.Start();
-
-                //create pipe (PTP) service point
-                BacnetPipeTransport pipe2_transport = new BacnetPipeTransport("COM1004", true);
-                BacnetPtpProtocolTransport ptp_transport = new BacnetPtpProtocolTransport(pipe2_transport, true);
-                ptp_transport.StateLogging = false;        //if you enable this, it will display a lot of information
-                m_ptp_server = new BacnetClient(ptp_transport);
-                m_ptp_server.OnWhoIs += new BacnetClient.WhoIsHandler(OnWhoIs);
-                m_ptp_server.OnWhoHas += new BacnetClient.WhoHasHandler(OnWhoHas);
-                m_ptp_server.OnReadPropertyRequest += new BacnetClient.ReadPropertyRequestHandler(OnReadPropertyRequest);
-                m_ptp_server.OnWritePropertyRequest += new BacnetClient.WritePropertyRequestHandler(OnWritePropertyRequest);
-                m_ptp_server.OnReadPropertyMultipleRequest += new BacnetClient.ReadPropertyMultipleRequestHandler(OnReadPropertyMultipleRequest);
-                m_ptp_server.OnWritePropertyMultipleRequest += new BacnetClient.WritePropertyMultipleRequestHandler(OnWritePropertyMultipleRequest);
-                m_ptp_server.OnAtomicWriteFileRequest += new BacnetClient.AtomicWriteFileRequestHandler(OnAtomicWriteFileRequest);
-                m_ptp_server.OnAtomicReadFileRequest += new BacnetClient.AtomicReadFileRequestHandler(OnAtomicReadFileRequest);
-                m_ptp_server.OnSubscribeCOV += new BacnetClient.SubscribeCOVRequestHandler(OnSubscribeCOV);
-                m_ptp_server.OnSubscribeCOVProperty += new BacnetClient.SubscribeCOVPropertyRequestHandler(OnSubscribeCOVProperty);
-                m_ptp_server.OnTimeSynchronize += new BacnetClient.TimeSynchronizeHandler(OnTimeSynchronize);
-                m_ptp_server.OnDeviceCommunicationControl += new BacnetClient.DeviceCommunicationControlRequestHandler(OnDeviceCommunicationControl);
-                m_ptp_server.OnReinitializedDevice += new BacnetClient.ReinitializedRequestHandler(OnReinitializedDevice);
-                m_ptp_server.OnIam += new BacnetClient.IamHandler(OnIam);
-                m_ptp_server.OnReadRange += new BacnetClient.ReadRangeHandler(OnReadRange);
-                m_ptp_server.Start();
-
-                //display info
-                Console.WriteLine("DemoServer startet ...");
-                Console.WriteLine("Udp service point - port: 0x" + udp_transport.SharedPort.ToString("X4") + "" + (udp_transport.ExclusivePort != udp_transport.SharedPort ? " and 0x" + udp_transport.ExclusivePort.ToString("X4") : ""));
-                Console.WriteLine("MSTP service point - name: \\\\.pipe\\" + pipe_transport.Name + ", source_address: " + mstp_transport.SourceAddress + ", max_master: " + mstp_transport.MaxMaster + ", max_info_frames: " + mstp_transport.MaxInfoFrames);
-                Console.WriteLine("PTP service point - name: \\\\.pipe\\" + pipe2_transport.Name);
-                Console.WriteLine("");
-
-                //send greeting
+                Console.WriteLine("DemoServer started on UDP port 0x" + udp_transport.SharedPort.ToString("X4"));
                 m_ip_server.Iam(m_storage.DeviceId, m_supported_segmentation);
-                m_mstp_server.Iam(m_storage.DeviceId, m_supported_segmentation);
-                
-                //endless loop of nothing
-                Console.WriteLine("Press the ANY key to exit!");
+
+                Console.WriteLine("Press ANY key to exit!");
                 while (!Console.KeyAvailable)
                 {
-                    //Endless loops of nothing are rather pointless, but I was too lazy to do anything fancy. 
-                    //And to be honest, it's not like it's sucking up a lot of system resources. 
-                    //If we'd made a GUI program or a Win32 service, we wouldn't have needed this. 
-                    System.Threading.Thread.Sleep(1000);            
+                    System.Threading.Thread.Sleep(1000);
                 }
                 Console.ReadKey();
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Exception: " + ex.Message);
-            }
-            finally
-            {
-                Console.WriteLine("Press the ANY key ... once more");
-                Console.ReadKey();
             }
         }
 
@@ -840,16 +785,20 @@ namespace DemoServer
             {
                 try
                 {
+                    Console.WriteLine($"[LOG] OnReadPropertyRequest: object_id={{type={object_id.type},instance={object_id.instance}}}, property_id={property.propertyIdentifier}, array_index={property.propertyArrayIndex}");
                     IList<BacnetValue> value;
                     DeviceStorage.ErrorCodes code = m_storage.ReadProperty(object_id, (BacnetPropertyIds)property.propertyIdentifier, property.propertyArrayIndex, out value);
                     if (code == DeviceStorage.ErrorCodes.Good)
                         sender.ReadPropertyResponse(adr, invoke_id, sender.GetSegmentBuffer(max_segments), object_id, property, value);
-
                     else
+                    {
+                        Console.WriteLine($"[LOG] OnReadPropertyRequest Error: 返回错误码={code}");
                         sender.ErrorResponse(adr, BacnetConfirmedServices.SERVICE_CONFIRMED_READ_PROPERTY, invoke_id, BacnetErrorClasses.ERROR_CLASS_DEVICE, BacnetErrorCodes.ERROR_CODE_OTHER);
+                    }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Console.WriteLine($"[LOG] OnReadPropertyRequest Exception: {ex}");
                     sender.ErrorResponse(adr, BacnetConfirmedServices.SERVICE_CONFIRMED_READ_PROPERTY, invoke_id, BacnetErrorClasses.ERROR_CLASS_DEVICE, BacnetErrorCodes.ERROR_CODE_OTHER);
                 }
             }

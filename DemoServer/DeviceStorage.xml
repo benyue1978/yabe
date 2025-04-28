@@ -43,6 +43,11 @@
           <Value>0000000010101010000000000000000100000000111110111111111</Value>
         </Property>
         <Property Id="PROP_OBJECT_LIST" Tag="BACNET_APPLICATION_TAG_OBJECT_ID">
+          <Value>OBJECT_DEVICE:400001</Value>
+          <Value>OBJECT_BINARY_INPUT:33</Value>
+          <Value>OBJECT_ANALOG_OUTPUT:3</Value>
+          <Value>OBJECT_ANALOG_INPUT:3333</Value>
+          <Value>OBJECT_MULTI_STATE_VALUE:333</Value>
         </Property>
         <Property Id="PROP_MAX_APDU_LENGTH_ACCEPTED" Tag="BACNET_APPLICATION_TAG_UNSIGNED_INT">
           <Value>1476</Value>
