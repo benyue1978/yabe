@@ -6,12 +6,12 @@
         mc:Ignorable="d"
         x:Class="Yabe.Avalonia.MainWindow"
         x:DataType="local:MainWindowViewModel"
-        Title="Yabe BACnet 跨平台工具" Width="900" Height="700">
+        Title="Yet Another BACnet Explorer" Width="900" Height="700">
     <Grid ColumnDefinitions="2.2*,5*" Margin="20">
-        <!-- 左侧设备列表 -->
+        <!-- Device List -->
         <StackPanel Grid.Column="0" Margin="0,0,16,0">
-            <TextBlock Text="BACnet 设备列表" FontSize="24" Margin="0,0,0,20"/>
-            <Button Content="发现设备" Command="{Binding DiscoverCommand}" Width="120"/>
+            <TextBlock Text="BACnet Device List" FontSize="24" Margin="0,0,0,20"/>
+            <Button Content="Discover Devices" Command="{Binding DiscoverCommand}" Width="120"/>
             <ListBox ItemsSource="{Binding Devices}"
                      SelectedItem="{Binding SelectedDevice, Mode=TwoWay}"
                      Margin="0,20,0,0" Height="200">
@@ -22,25 +22,25 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
-        <!-- 右侧详情+日志上下分区 -->
+        <!-- Right details + log split view -->
         <Grid Grid.Column="1" RowDefinitions="2.5*,1.2*">
-            <!-- 设备详情 -->
+            <!-- Device details -->
             <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <Border BorderBrush="Gray" BorderThickness="1" Margin="0,0,0,0" Padding="10">
                         <StackPanel>
-                            <TextBlock Text="设备详情" FontWeight="Bold" FontSize="18"/>
+                            <TextBlock Text="Device Details" FontWeight="Bold" FontSize="18"/>
                             <TextBlock Text="ID:"/>
                             <TextBlock Text="{Binding SelectedDevice.Id}"/>
-                            <TextBlock Text="地址:"/>
+                            <TextBlock Text="Address:"/>
                             <TextBlock Text="{Binding SelectedDevice.Address}"/>
-                            <TextBlock Text="厂商:"/>
+                            <TextBlock Text="Vendor:"/>
                             <TextBlock Text="{Binding SelectedDevice.Vendor}"/>
-                            <TextBlock Text="名称:"/>
+                            <TextBlock Text="Name:"/>
                             <TextBlock Text="{Binding SelectedDevice.Name}"/>
-                            <TextBlock Text="对象数:"/>
+                            <TextBlock Text="Object Count:"/>
                             <TextBlock Text="{Binding SelectedDevice.ObjectCount}"/>
-                            <TextBlock Text="对象浏览" FontWeight="Bold" FontSize="16" Margin="0,10,0,0"/>
+                            <TextBlock Text="Object Browser" FontWeight="Bold" FontSize="16" Margin="0,10,0,0"/>
                             <ListBox ItemsSource="{Binding SelectedDevice.Objects}" SelectedItem="{Binding SelectedObject, Mode=TwoWay}" Height="120">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
@@ -53,7 +53,7 @@
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                            <TextBlock Text="属性列表" FontWeight="Bold" FontSize="14" Margin="0,10,0,0"/>
+                            <TextBlock Text="Property List" FontWeight="Bold" FontSize="14" Margin="0,10,0,0"/>
                             <ItemsControl ItemsSource="{Binding SelectedObject.Properties}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
@@ -69,9 +69,9 @@
                     </Border>
                 </StackPanel>
             </ScrollViewer>
-            <!-- 日志 -->
+            <!-- Log -->
             <StackPanel Grid.Row="1" Margin="0,20,0,0">
-                <TextBlock Text="日志" FontWeight="Bold" FontSize="16" Margin="0,0,0,0"/>
+                <TextBlock Text="Log" FontWeight="Bold" FontSize="16" Margin="0,0,0,0"/>
                 <ListBox ItemsSource="{Binding Logs}" Height="120"/>
             </StackPanel>
         </Grid>

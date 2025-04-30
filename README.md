@@ -1,86 +1,86 @@
-# Yabe BACnet 跨平台工具
+# Yet Another BACnet Explorer MacOS 
 
-从<https://sourceforge.net/projects/yetanotherbacnetexplorer/> 迁移到MacOS
+Migrate from <https://sourceforge.net/projects/yetanotherbacnetexplorer/>
 
-仅作为学习使用
+For learning purpose. 
 
-本项目包含两个主要组件：
+This project consists of two main components:
 
-- **DemoServer**：BACnet 协议模拟服务器，支持 BACnet/IP 设备模拟与测试。
-- **Yabe.Avalonia**：基于 Avalonia 的跨平台 BACnet 客户端图形界面，可用于设备发现、对象浏览、属性读取等。
-
----
-
-## 环境要求
-
-- .NET 9.0 SDK 及以上
-- 推荐操作系统：macOS（也支持 Windows/Linux，未经测试）
+- **DemoServer**: A BACnet protocol simulation server that supports BACnet/IP device simulation and testing.
+- **Yabe.Avalonia**: A cross-platform BACnet client GUI based on Avalonia, supporting device discovery, object browsing, property reading, etc.
 
 ---
 
-## 1. 运行 DemoServer（BACnet 模拟服务器）
+## Requirements
 
-### 编译
+- .NET 9.0 SDK or above
+- Recommended OS: macOS (Windows/Linux supported but not fully tested)
+
+---
+
+## 1. Running DemoServer (BACnet Simulation Server)
+
+### Build
 
 ```sh
-# 在项目根目录下
+# In project root directory
 cd DemoServer
-# 构建
- dotnet build
+# Build
+dotnet build
 ```
 
-### 运行
+### Run
 
 ```sh
-# 进入输出目录
+# Go to output directory
 cd bin/Debug/net9.0
-# 启动 DemoServer
+# Start DemoServer
 ./DemoServer
 ```
 
-DemoServer 会监听 UDP 0xBAC0 端口，模拟一个 BACnet 设备，支持 BACnet 客户端发现、属性读取等操作。
+DemoServer listens on UDP port 0xBAC0, simulating a BACnet device that supports client discovery, property reading, and other BACnet operations.
 
 ---
 
-## 2. 运行 Yabe.Avalonia（跨平台 BACnet 客户端）
+## 2. Running Yabe.Avalonia (Cross-platform BACnet Client)
 
-### 编译UI
+### Build UI
 
 ```sh
-# 在项目根目录下
+# In project root directory
 cd yabe.avalonia
-# 构建
- dotnet build
+# Build
+dotnet build
 ```
 
-### 运行UI
+### Run UI
 
 ```sh
-# 运行 Avalonia UI 客户端
- dotnet run
+# Run Avalonia UI client
+dotnet run
 ```
 
-### 功能说明
+### Features
 
-- 点击“发现设备”可自动搜索局域网内 BACnet 设备（如 DemoServer）。
-- 点击设备可浏览其对象树和属性。
-- 日志区实时显示操作和通信日志。
-
----
-
-## 3. 常见问题
-
-- 如遇端口占用、权限等问题，请检查防火墙设置或以管理员权限运行。
-- DemoServer 默认读取 DeviceStorage.xml 配置文件，确保该文件存在于输出目录。
-- Yabe.Avalonia 依赖 yabe.core 项目，无需单独编译。
+- Click "Discover Devices" to automatically search for BACnet devices (like DemoServer) in the local network.
+- Click on a device to browse its object tree and properties.
+- Log area displays real-time operation and communication logs.
 
 ---
 
-## 4. 参考
+## 3. Troubleshooting
 
-- Avalonia 官方文档：<https://avaloniaui.net/>
-- .NET 官方文档：<https://learn.microsoft.com/dotnet/>
-- BACnet 协议资料：<https://www.bacnet.org/>
+- For port occupation or permission issues, check firewall settings or run with administrator privileges.
+- DemoServer reads DeviceStorage.xml configuration file by default, ensure it exists in the output directory.
+- Yabe.Avalonia depends on yabe.core project, no separate compilation needed.
+
+---
+
+## 4. References
+
+- Avalonia Documentation: <https://avaloniaui.net/>
+- .NET Documentation: <https://learn.microsoft.com/dotnet/>
+- BACnet Protocol Resources: <https://www.bacnet.org/>
 
 ---
 

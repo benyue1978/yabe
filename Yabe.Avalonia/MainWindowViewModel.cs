@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System;
 using System.Threading.Tasks;
-using System.IO.BACnet; // 引用 Yabe.Core
+using System.IO.BACnet; // Reference Yabe.Core
 using System.Collections.Generic;
 using Avalonia.Threading;
 using Yabe.Avalonia;
@@ -29,14 +29,14 @@ namespace Yabe.Avalonia
                 OnPropertyChanged();
                 if (value != null)
                 {
-                    Log($"加载设备 {value.Id} 的对象树...");
+                    Log($"Loading object tree for device {value.Id}...");
                     if (value.BacnetAddress != null)
                     {
                         Task.Run(() => LoadDeviceObjectsAsync(value, value.BacnetAddress));
                     }
                     else
                     {
-                        Log($"无法获取设备地址: {value.Address}");
+                        Log($"Cannot get device address: {value.Address}");
                     }
                 }
             }
@@ -67,7 +67,7 @@ namespace Yabe.Avalonia
             _deviceMap.Clear();
             SelectedDevice = null;
             Logs.Clear();
-            Log("开始发现设备...");
+            Log("Starting device discovery...");
             try
             {
                 if (_client != null)
@@ -77,17 +77,17 @@ namespace Yabe.Avalonia
                 _client.OnIam += OnIam;
                 _client.Start();
                 _client.WhoIs();
-                Log("已广播 WhoIs");
+                Log("Broadcast WhoIs");
                 await Task.Delay(2000);
                 if (_client != null)
                     _client.OnIam -= OnIam;
                 _client.Dispose();
                 _client = null;
-                Log($"发现结束，共发现 {_foundDeviceIds.Count} 台设备");
+                Log($"Discovery complete, found {_foundDeviceIds.Count} devices");
             }
             catch (Exception ex)
             {
-                Log($"发现异常: {ex.Message}");
+                Log($"Discovery exception: {ex.Message}");
             }
         }
 
@@ -97,21 +97,21 @@ namespace Yabe.Avalonia
             {
                 if (_foundDeviceIds.Contains(device_id)) return;
                 _foundDeviceIds.Add(device_id);
-                Log($"收到 IAm: ID={device_id} 地址={adr} Vendor={vendor_id}");
+                Log($"Received IAm: ID={device_id} Address={adr} Vendor={vendor_id}");
                 var dev = new DeviceViewModel
                 {
                     Id = device_id,
                     Address = adr.ToString(),
                     Vendor = vendor_id.ToString(),
-                    Display = $"ID={device_id}  地址={adr}  Vendor={vendor_id}",
+                    Display = $"ID={device_id} Address={adr} Vendor={vendor_id}",
                     BacnetAddress = adr
                 };
                 _deviceMap[device_id] = dev;
                 Dispatcher.UIThread.Post(() => Devices.Add(dev));
-                // 异步读取设备名称、对象数等
+                // Asynchronously read device name, object count, etc.
                 Task.Run(() => LoadDeviceDetails(dev, adr));
             }
-            catch (Exception ex) { Log($"IAm 处理异常: {ex.Message}"); }
+            catch (Exception ex) { Log($"IAm processing exception: {ex.Message}"); }
         }
 
         private void LoadDeviceDetails(DeviceViewModel dev, BacnetAddress adr)
@@ -120,39 +120,39 @@ namespace Yabe.Avalonia
             {
                 using var client = new BacnetClient(0xBAC0, 2000, 3);
                 client.Start();
-                // 读取名称
+                // Read name
                 try
                 {
                     if (client.ReadPropertyRequest(adr, new BacnetObjectId(BacnetObjectTypes.OBJECT_DEVICE, dev.Id), BacnetPropertyIds.PROP_OBJECT_NAME, out var nameList))
                     {
                         dev.Name = nameList.Count > 0 ? nameList[0].Value?.ToString() ?? "" : "";
-                        Log($"设备 {dev.Id} 读取名称: {dev.Name}");
+                        Log($"Device {dev.Id} read name: {dev.Name}");
                     }
                 }
-                catch (Exception ex) { Log($"设备 {dev.Id} 读取名称失败: {ex.Message}"); }
-                // 读取对象列表
+                catch (Exception ex) { Log($"Device {dev.Id} read name failed: {ex.Message}"); }
+                // Read object list
                 try
                 {
                     if (client.ReadPropertyRequest(adr, new BacnetObjectId(BacnetObjectTypes.OBJECT_DEVICE, dev.Id), BacnetPropertyIds.PROP_OBJECT_LIST, out var objList))
                     {
                         dev.ObjectCount = objList.Count.ToString();
-                        Log($"设备 {dev.Id} 对象数: {dev.ObjectCount}");
+                        Log($"Device {dev.Id} object count: {dev.ObjectCount}");
                     }
                 }
-                catch (Exception ex) { Log($"设备 {dev.Id} 读取对象列表失败: {ex.Message}"); }
-                // 读取厂商名称
+                catch (Exception ex) { Log($"Device {dev.Id} read object list failed: {ex.Message}"); }
+                // Read vendor name
                 try
                 {
                     if (client.ReadPropertyRequest(adr, new BacnetObjectId(BacnetObjectTypes.OBJECT_DEVICE, dev.Id), BacnetPropertyIds.PROP_VENDOR_NAME, out var vendorNameList))
                     {
                         dev.Vendor = vendorNameList.Count > 0 ? vendorNameList[0].Value?.ToString() ?? dev.Vendor : dev.Vendor;
-                        Log($"设备 {dev.Id} 厂商: {dev.Vendor}");
+                        Log($"Device {dev.Id} vendor: {dev.Vendor}");
                     }
                 }
-                catch (Exception ex) { Log($"设备 {dev.Id} 读取厂商失败: {ex.Message}"); }
+                catch (Exception ex) { Log($"Device {dev.Id} read vendor failed: {ex.Message}"); }
                 Dispatcher.UIThread.Post(() => dev.NotifyAll());
             }
-            catch (Exception ex) { Log($"设备 {dev.Id} 详情读取异常: {ex.Message}"); }
+            catch (Exception ex) { Log($"Device {dev.Id} details read exception: {ex.Message}"); }
         }
 
         public async Task LoadDeviceObjectsAsync(DeviceViewModel dev, BacnetAddress adr)
@@ -161,7 +161,7 @@ namespace Yabe.Avalonia
             {
                 using var client = new BacnetClient(0xBAC0, 2000, 3);
                 client.Start();
-                // 读取对象列表
+                // Read object list
                 if (client.ReadPropertyRequest(adr, new BacnetObjectId(BacnetObjectTypes.OBJECT_DEVICE, dev.Id), BacnetPropertyIds.PROP_OBJECT_LIST, out var objList))
                 {
                     dev.Objects.Clear();
@@ -170,10 +170,10 @@ namespace Yabe.Avalonia
                         if (obj.Value is BacnetObjectId objId)
                         {
                             var objVm = new ObjectViewModel { ObjectId = objId, Type = objId.type.ToString() };
-                            // 读取对象名称
+                            // Read object name
                             if (client.ReadPropertyRequest(adr, objId, BacnetPropertyIds.PROP_OBJECT_NAME, out var nameList))
                                 objVm.Name = nameList.Count > 0 ? nameList[0].Value?.ToString() ?? "" : "";
-                            // 读取常用属性
+                            // Read common properties
                             var propListToRead = YabeObjectPropertyLoader.GetProperties(objId.type);
                             foreach (BacnetPropertyIds pid in propListToRead)
                             {
@@ -188,10 +188,10 @@ namespace Yabe.Avalonia
                             dev.Objects.Add(objVm);
                         }
                     }
-                    Log($"设备 {dev.Id} 对象浏览完成，共 {dev.Objects.Count} 个对象");
+                    Log($"Device {dev.Id} object browser completed, {dev.Objects.Count} objects");
                 }
             }
-            catch (Exception ex) { Log($"设备 {dev.Id} 对象浏览异常: {ex.Message}"); }
+            catch (Exception ex) { Log($"Device {dev.Id} object browser exception: {ex.Message}"); }
         }
     }
 
@@ -234,7 +234,7 @@ namespace Yabe.Avalonia
         private string _value = "";
     }
 
-    // 支持属性通知的基类
+    // Base class supporting property notifications
     public class NotifyPropertyChangedBase : System.ComponentModel.INotifyPropertyChanged
     {
         public event System.ComponentModel.PropertyChangedEventHandler? PropertyChanged;
@@ -242,7 +242,7 @@ namespace Yabe.Avalonia
             => PropertyChanged?.Invoke(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
     }
 
-    // 支持异步的命令实现
+    // Async command implementation
     public class RelayCommand : ICommand
     {
         private readonly Func<Task>? _executeAsync;
